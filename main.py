@@ -63,6 +63,8 @@ if __name__ == '__main__':
                 print('Exiting simulation...')
                 break
             elif command.startswith('PLACE'):
+                # NB: Currently only supports PLACE X,Y,F (no spaces between values).
+                # Would require additional logic to handle commands with spaces.
                 logger.debug('Processing PLACE command...')
                 print('Processing PLACE command...')
                 try:
