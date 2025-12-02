@@ -75,7 +75,7 @@ if __name__ == '__main__':
                     if len(coords) != 3:
                         raise Exception('Invalid PLACE command. Please provide X,Y,F coordinates separated by commas.')
                     x, y, direction = coords
-                    print(location_manager.set_start_position((int(x), int(y), direction)))
+                    print(robot_manager.place_robot((int(x), int(y), direction)))
                 except Exception as e:
                     logger.error(f'Error whilst processing PLACE command: {e}')
                     print(e)
