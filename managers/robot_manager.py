@@ -48,6 +48,8 @@ class RobotManager:
             str: A message indicating the robot's new facing direction.
         """
         logger.debug(f'Turning robot {rotation}. current facing: {self.location_manager.location_facing}')
+        if not self.location_manager.is_placed():
+            return 'Robot not placed. Please place robot before turning.'
         if self.location_manager.update_rotation(rotation):
             logger.debug(f'Robot now facing: {self.location_manager.location_facing}')
             return f'Robot is now facing {self.location_manager.location_facing}'
