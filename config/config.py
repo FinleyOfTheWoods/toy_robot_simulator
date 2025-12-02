@@ -15,15 +15,13 @@ class Config:
         config_file (str): Path to the configuration file. Defaults to 'config.yaml'.
         logging_level (int): The logging level for the application.
         simulation_area (tuple[int, int]): The dimensions of the simulation area as (width, height).
-        start_position (tuple[int, int, str]): The robot's starting position as (x, y, direction).
     """
     config_file = 'config.yaml'
     logging_level = logging.INFO
     simulation_area: tuple[int, int] = None
-    start_position: tuple[int, int, str] = None
 
     @classmethod
-    def check_config(cls, simulation_area: tuple[int, int], start_position: tuple[int, int, str]) -> None:
+    def check_config(cls, simulation_area: tuple[int, int]) -> None:
         """
         Validate the configuration parameters.
 
@@ -32,24 +30,17 @@ class Config:
 
         Args:
             simulation_area (tuple[int, int]): The total area that the robot can move within.
-            start_position (tuple[int, int, str]): The start position of the robot as (x, y, direction).
 
         Raises:
             Exception: If simulation_area is None or not a tuple.
             Exception: If start_position is None or not a tuple.
         """
-        logging.debug(
-            f'Checking config. simulation_area: {simulation_area} type: {type(simulation_area)}, start_position: {start_position} type: {type(start_position)}')
+        logging.debug(f'Checking config. simulation_area: {simulation_area} type: {type(simulation_area)}')
 
         if simulation_area is None:
             raise Exception("Invalid config. Simulation area is not set.")
         if not isinstance(simulation_area, tuple):
             raise Exception("Invalid config. Simulation area is not of type tuple[int, int]")
-
-        if start_position is None:
-            raise Exception("Invalid config. Start position is not set")
-        if not isinstance(start_position, tuple):
-            raise Exception("Invalid config. Start position is not of type tuple[int, int, str]")
         logging.debug('Config is valid.')
         return None
 
@@ -105,23 +96,15 @@ class Config:
                     simulation_area_config['x'],
                     simulation_area_config['y']
                 )
-
-                start_position_config = config['start_position']
-                start_position = (
-                    start_position_config['x'],
-                    start_position_config['y'],
-                    start_position_config['direction']
-                )
                 try:
-                    self.check_config(simulation_area, start_position)
+                    self.check_config(simulation_area)
                 except Exception as e:
                     logger.error('Failed to load config. Exiting...')
                     logger.error(e)
                     exit(1)
 
                 self.simulation_area = simulation_area
-                self.start_position = start_position
-                logging.debug(f'Config set to logging level: {self.logging_level}, simulation_area: {self.simulation_area}, start_position: {self.start_position}')
+                logging.debug(f'Config set to logging level: {self.logging_level}, simulation_area: {self.simulation_area}')
             except yaml.YAMLError as yaml_e:
                 logger.error('Error whilst loading config file. Exiting...')
                 logger.error(yaml_e)

@@ -20,17 +20,17 @@ class LocationManager:
 
     available_directions = ['NORTH', 'EAST', 'SOUTH', 'WEST']
 
-    def __init__(self, simulation_area: tuple[int, int], location: tuple[int, int, str]) -> None:
+    def __init__(self, simulation_area: tuple[int, int]) -> None:
         """
         Initialise the LocationManager with a simulation area and starting location.
 
         Args:
             simulation_area (tuple[int, int]): The dimensions of the table as (width, height).
-            location (tuple[int, int, str]): Starting position as (x, y, direction).
         """
         self.simulation_area = simulation_area
-        self.location_x, self.location_y = location[0], location[1]
-        self.location_facing = location[2]
+        self.location_x = None
+        self.location_y = None
+        self.location_facing = None
 
     @classmethod
     def check_location(cls, simulation_area, location: tuple) -> bool:
@@ -130,7 +130,7 @@ class LocationManager:
             self.location_x, self.location_y = location[0], location[1]
             self.location_facing = location[2]
             return True
-        logger.debug('No start position provided. Setting to default (0, 0, NORTH) provided in config file.')
+        logger.debug('No start position provided.')
         return False
 
     def update_rotation(self, rotation) -> bool:

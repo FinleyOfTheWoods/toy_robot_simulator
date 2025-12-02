@@ -34,7 +34,7 @@ if __name__ == '__main__':
 
 
     # Load the start position from config, this is the position the robot starts at.
-    location_manager = LocationManager(simulation_manager.get_simulation_area(), config.start_position)
+    location_manager = LocationManager(simulation_manager.get_simulation_area())
 
     # Initialise RobotManager.
     robot_manager = RobotManager(location_manager)
