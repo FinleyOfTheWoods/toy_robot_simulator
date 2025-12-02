@@ -1,0 +1,9 @@
+# config.yaml
+logging_level: DEBUG
+simulation_area:
+  x: 5
+  y: 5
+start_position:
+  x: 0
+  y: 0
+  direction: 'NORTH' # valid options: NORTH, SOUTH, EAST, WEST
